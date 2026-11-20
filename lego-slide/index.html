@@ -4,186 +4,349 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Anatomy of Success</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@800;900&display=swap" rel="stylesheet">
 <style>
+  :root{--ink:#3d2418;--red:#e2301f}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:#222;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:"Trebuchet MS","Segoe UI",Arial,sans-serif}
-  .slide{position:relative;width:1280px;height:720px;background:linear-gradient(180deg,#e6f5fd,#cfe9f7);overflow:hidden;border-radius:6px}
-  .strip{position:absolute;top:0;left:0;right:0;height:26px;background:#c9d82b;
-    background-image:radial-gradient(circle at 14px 13px,#e6ef6a 7px,transparent 8px);background-size:28px 26px}
-  .title{position:absolute;top:70px;left:0;right:0;text-align:center;font-weight:900;font-size:50px;color:#4a2f27;letter-spacing:-1px}
-  .title b{color:#d2261c}
-  .sub{position:absolute;top:132px;left:0;right:0;text-align:center;font-size:24px;font-weight:700;color:#4a2f27}
-  .card{position:absolute;top:225px;width:210px;height:340px;border-radius:18px;text-align:center;padding-top:34px;color:#fff;box-shadow:0 6px 0 rgba(0,0,0,.18)}
-  .card:before{content:"";position:absolute;top:-22px;left:22px;width:40px;height:26px;border-radius:8px 8px 0 0;background:inherit;box-shadow:68px 0 0 0 currentColor,0 0 0 0 transparent}
-  .stud{position:absolute;top:-20px;width:44px;height:24px;border-radius:10px 10px 0 0;background:inherit}
-  .card h2{font-size:34px;font-weight:900;margin-top:6px}
-  .card p{font-size:21px;font-weight:600;line-height:1.25;margin:10px auto 0;width:160px}
-  .c1{left:432px;background:#e6d62a;color:#4a2f27}
-  .c2{left:664px;background:#e0431f}
-  .c3{left:896px;background:#5a3fd1}
-  .c1 .stud:nth-child(1){left:20px}.c1 .stud:nth-child(2){left:83px}.c1 .stud:nth-child(3){left:146px}
-  .c2 .stud:nth-child(1){left:20px}.c2 .stud:nth-child(2){left:83px}.c2 .stud:nth-child(3){left:146px}
-  .c3 .stud:nth-child(1){left:20px}.c3 .stud:nth-child(2){left:83px}.c3 .stud:nth-child(3){left:146px}
-  .card:before{display:none}
-  .card svg{position:absolute;left:0;bottom:8px;width:100%;height:112px}
-  .card p{font-size:20px}
-  .banner{position:absolute;left:432px;width:674px;top:612px;height:48px;border-radius:24px;background:#f4e04a;border:3px solid #fff;
-    text-align:center;line-height:42px;font-weight:900;font-size:22px;color:#6b3a14;box-shadow:0 3px 0 rgba(0,0,0,.15)}
-  .progress{position:absolute;left:60px;right:90px;bottom:34px;height:4px;background:#bcd6e6;border-radius:2px}
-  .progress i{position:absolute;left:0;top:0;height:4px;width:36%;background:#e0431f;border-radius:2px}
-  .num{position:absolute;right:48px;bottom:24px;font-weight:800;font-size:15px;color:#4a2f27}
-  .fig{position:absolute;left:36px;top:210px;width:380px;height:460px}
-  .bricks{position:absolute;right:50px;top:70px;width:120px;height:90px}
+  body{background:#1d1d1f;display:flex;align-items:center;justify-content:center;min-height:100vh}
+  .slide{position:relative;width:1280px;height:720px;overflow:hidden;font-family:Nunito,sans-serif;color:var(--ink);
+    background:radial-gradient(120% 95% at 55% 25%,#f4fcff 0%,#dcf1fb 50%,#bde2f4 100%)}
+  /* soft background blobs */
+  .blob{position:absolute;border-radius:50%;filter:blur(2px);opacity:.55}
+  .strip{position:absolute;left:0;right:0;top:0;height:32px;
+    background:radial-gradient(circle at 50% 48%,#f8fcb2 0 3px,#e3ee5c 4.5px 9px,#a8ba1a 10px 11px,transparent 12px) 0 0/32px 32px,
+               linear-gradient(#d3e03a,#bccc25);
+    box-shadow:0 3px 0 #9caf16,0 8px 14px rgba(0,60,100,.12)}
+  .title{position:absolute;top:56px;left:0;right:0;text-align:center;font-family:Fredoka,sans-serif;font-weight:700;font-size:60px;letter-spacing:-.5px;
+    text-shadow:0 3px 0 #fff,0 8px 14px rgba(0,50,90,.12)}
+  .title b{color:var(--red);font-weight:700}
+  .sub{position:absolute;top:136px;left:0;right:0;text-align:center;font-weight:800;font-size:24px;color:#5a3a2a}
+
+  .card{position:absolute;top:236px;width:232px;height:332px;border-radius:22px;text-align:center;padding-top:30px;
+    background:linear-gradient(165deg,var(--hi) 0%,var(--base) 48%,var(--lo) 100%);
+    box-shadow:inset 0 -12px 0 var(--edge),inset 0 3px 0 rgba(255,255,255,.5),inset 3px 0 0 rgba(255,255,255,.18),0 20px 30px -10px rgba(0,50,90,.4)}
+  .card::after{content:"";position:absolute;left:12px;right:12px;top:9px;height:96px;border-radius:16px 16px 48px 48px;
+    background:linear-gradient(rgba(255,255,255,.3),rgba(255,255,255,0));pointer-events:none}
+  .stud{position:absolute;top:-19px;width:50px;height:25px;border-radius:12px 12px 3px 3px;
+    background:linear-gradient(90deg,var(--hi),var(--base) 45%,var(--lo));box-shadow:inset 0 3px 0 rgba(255,255,255,.5)}
+  .stud:nth-of-type(1){left:22px}.stud:nth-of-type(2){left:91px}.stud:nth-of-type(3){left:160px}
+  .card h2{position:relative;z-index:1;font-family:Fredoka,sans-serif;font-weight:700;font-size:42px;line-height:1;text-shadow:0 3px 0 var(--edge)}
+  .card p{position:relative;z-index:1;font-weight:800;font-size:19px;line-height:1.25;width:184px;margin:12px auto 0}
+  .card svg{position:absolute;left:0;bottom:16px;width:232px;height:150px;overflow:visible}
+  .c1{left:444px;--hi:#fff47e;--base:#f3d92c;--lo:#dfbb12;--edge:#c39d0b;color:var(--ink)}
+  .c1 h2{text-shadow:0 3px 0 rgba(255,255,255,.6)}
+  .c2{left:696px;--hi:#ff7d55;--base:#ec4a24;--lo:#d23515;--edge:#a8270d;color:#fff}
+  .c3{left:948px;--hi:#8f7dff;--base:#6548e6;--lo:#4d32c9;--edge:#3a239f;color:#fff}
+
+  .banner{position:absolute;top:604px;left:444px;width:736px;height:52px;border-radius:26px;border:3px solid #fff;
+    background:linear-gradient(#fff27c,#f6d633);text-align:center;line-height:46px;
+    font-family:Fredoka,sans-serif;font-weight:600;font-size:25px;color:#5a2e12;
+    box-shadow:0 5px 0 #d4ac12,0 14px 22px -6px rgba(0,50,90,.35)}
+  .dash{position:absolute;top:602px;width:34px;height:56px;overflow:visible}
+
+  .progress{position:absolute;left:72px;right:116px;top:692px;height:4px;border-radius:2px;background:#b2d3e5}
+  .progress .fill{position:absolute;left:0;top:0;bottom:0;border-radius:2px;background:var(--red)}
+  .node{position:absolute;top:50%;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:#b2d3e5}
+  .node.on{background:var(--red)}
+  .node.now{width:16px;height:16px;margin:-8px 0 0 -8px;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+  .num{position:absolute;right:52px;top:680px;font-family:Fredoka,sans-serif;font-weight:700;font-size:20px;color:var(--ink)}
+
+  .abs{position:absolute;overflow:visible}
+  .shadow{filter:drop-shadow(0 10px 12px rgba(0,50,90,.22))}
 </style>
 </head>
 <body>
 <div class="slide">
+  <div class="blob" style="left:-120px;top:420px;width:420px;height:420px;background:#c9ecfb"></div>
+  <div class="blob" style="right:-160px;top:-60px;width:460px;height:380px;background:#e9f8ff"></div>
   <div class="strip"></div>
 
   <div class="title">The Anatomy of <b>LEGO’s</b> Success</div>
   <div class="sub">From the Interlocking System to Global Production</div>
 
-  <!-- decorative bricks -->
-  <svg class="bricks" viewBox="0 0 120 90">
-    <g transform="translate(6,22)">
-      <rect x="0" y="14" width="62" height="38" rx="5" fill="#d2261c"/>
-      <polygon points="0,14 62,14 72,4 10,4" fill="#ee5a4a"/>
-      <ellipse cx="22" cy="9" rx="9" ry="5" fill="#ee5a4a"/><ellipse cx="50" cy="9" rx="9" ry="5" fill="#ee5a4a"/>
-      <rect x="62" y="14" width="10" height="38" fill="#a51a12" transform="skewY(-45) translate(0,36)" opacity="0"/>
-    </g>
-    <g transform="translate(46,2)">
-      <rect x="0" y="26" width="58" height="36" rx="5" fill="#9bc72b"/>
-      <polygon points="0,26 58,26 66,16 8,16" fill="#c5e35a"/>
-      <ellipse cx="20" cy="20" rx="8" ry="5" fill="#c5e35a"/><ellipse cx="46" cy="20" rx="8" ry="5" fill="#c5e35a"/>
-    </g>
-  </svg>
+  <svg id="corner" class="abs shadow" style="left:1116px;top:44px;width:140px;height:120px" viewBox="0 0 140 120"></svg>
 
-  <!-- minifigure + brick diagram -->
-  <svg class="fig" viewBox="0 0 420 460" style="width:420px;left:10px">
-    <!-- sparkle lines -->
-    <g stroke="#f2b705" stroke-width="5" stroke-linecap="round">
-      <line x1="170" y1="40" x2="162" y2="22"/><line x1="190" y1="34" x2="196" y2="16"/><line x1="150" y1="58" x2="136" y2="48"/>
-    </g>
-    <!-- anatomy circle -->
-<g transform="translate(40,0)">
-    <circle cx="255" cy="350" r="92" fill="#fff" stroke="#f2b705" stroke-width="5"/>
-    <g transform="translate(190,300)">
-      <!-- upper brick (outline) -->
-      <polygon points="10,36 112,36 128,18 28,18" fill="#eef1f3" stroke="#aeb8bf" stroke-width="2"/>
-      <ellipse cx="42" cy="26" rx="13" ry="5" fill="#fff" stroke="#aeb8bf" stroke-width="2"/>
-      <ellipse cx="70" cy="26" rx="13" ry="5" fill="#fff" stroke="#aeb8bf" stroke-width="2"/>
-      <ellipse cx="98" cy="26" rx="13" ry="5" fill="#fff" stroke="#aeb8bf" stroke-width="2"/>
-      <!-- lower brick -->
-      <polygon points="0,66 118,66 134,48 18,48" fill="#e4e8eb" stroke="#aeb8bf" stroke-width="2"/>
-      <rect x="0" y="66" width="118" height="30" fill="#f4f6f7" stroke="#aeb8bf" stroke-width="2"/>
-      <polygon points="118,66 134,48 134,78 118,96" fill="#d5dbe0" stroke="#aeb8bf" stroke-width="2"/>
-      <ellipse cx="34" cy="57" rx="11" ry="4" fill="#fff" stroke="#aeb8bf" stroke-width="2"/>
-      <ellipse cx="62" cy="57" rx="11" ry="4" fill="#fff" stroke="#aeb8bf" stroke-width="2"/>
-      <ellipse cx="90" cy="57" rx="11" ry="4" fill="#fff" stroke="#aeb8bf" stroke-width="2"/>
-    </g>
-    <text x="222" y="296" font-size="15" font-weight="700" fill="#3a3a3a">Tube</text>
-    <line x1="244" y1="302" x2="238" y2="322" stroke="#3a3a3a" stroke-width="1.5"/>
-    <text x="292" y="414" font-size="15" font-weight="700" fill="#3a3a3a">Stud</text>
-    <line x1="296" y1="404" x2="262" y2="360" stroke="#3a3a3a" stroke-width="1.5"/>
-</g>
+  <!-- minifigure -->
+  <svg class="abs shadow" style="left:6px;top:178px;width:430px;height:520px" viewBox="0 0 430 520">
+    <defs>
+      <linearGradient id="skin" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#ffd84a"/><stop offset=".45" stop-color="#ffcf2e"/><stop offset="1" stop-color="#eaa900"/>
+      </linearGradient>
+      <radialGradient id="hand" cx=".35" cy=".35" r=".8">
+        <stop offset="0" stop-color="#ffe27a"/><stop offset=".6" stop-color="#f8c21a"/><stop offset="1" stop-color="#df9e00"/>
+      </radialGradient>
+      <linearGradient id="hair" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#9a5328"/><stop offset="1" stop-color="#5f2c12"/>
+      </linearGradient>
+      <linearGradient id="hairBack" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#6e3416"/><stop offset="1" stop-color="#4f230d"/>
+      </linearGradient>
+      <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#ffffff"/><stop offset=".6" stop-color="#f2f6f9"/><stop offset="1" stop-color="#d6e0e8"/>
+      </linearGradient>
+      <linearGradient id="apron" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffaa3a"/><stop offset=".55" stop-color="#f68a16"/><stop offset="1" stop-color="#e06d08"/>
+      </linearGradient>
+      <linearGradient id="leg" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#f47a2a"/><stop offset=".6" stop-color="#e2611a"/><stop offset="1" stop-color="#c24c10"/>
+      </linearGradient>
+    </defs>
 
-    <!-- minifigure -->
-    <!-- legs -->
-    <rect x="62" y="372" width="56" height="78" rx="6" fill="#f08a1c"/>
-    <rect x="124" y="372" width="56" height="78" rx="6" fill="#f08a1c"/>
-    <rect x="118" y="372" width="6" height="78" fill="#c76d0d"/>
+    <ellipse cx="178" cy="504" rx="112" ry="13" fill="#0a4a78" opacity=".16"/>
+
+    <!-- ponytail + back hair -->
+    <path d="M132 118 C84 110 56 150 60 204 C63 246 50 278 30 302 C74 298 98 262 102 226 C106 190 112 160 136 150 Z" fill="url(#hairBack)"/>
+    <path d="M84 156 C74 190 78 232 60 270" stroke="#8a4520" stroke-width="4" fill="none" stroke-linecap="round" opacity=".8"/>
+    <ellipse cx="122" cy="132" rx="9" ry="13" fill="#e2301f" transform="rotate(-30 122 132)"/>
+    <path d="M110 176 C98 112 140 72 186 72 C234 74 262 112 256 166 C254 204 250 230 244 250 L114 250 C110 226 110 200 110 176 Z" fill="url(#hairBack)"/>
+
+    <!-- legs + hips -->
+    <rect x="98" y="390" width="78" height="108" rx="7" fill="url(#leg)"/>
+    <rect x="180" y="390" width="78" height="108" rx="7" fill="url(#leg)"/>
+    <rect x="94" y="484" width="84" height="16" rx="5" fill="#b9460e"/>
+    <rect x="178" y="484" width="84" height="16" rx="5" fill="#b9460e"/>
+    <rect x="96" y="368" width="164" height="26" rx="5" fill="#cf5513"/>
+    <rect x="96" y="368" width="164" height="6" rx="3" fill="#ff9c55" opacity=".45"/>
+
     <!-- torso -->
-    <rect x="48" y="226" width="146" height="150" rx="14" fill="#f1f6fa" stroke="#cfd9e0" stroke-width="2"/>
+    <path d="M122 238 L234 238 L262 372 L94 372 Z" fill="url(#shirt)" stroke="#d5dee6" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M156 238 L178 266 L200 238 Z" fill="#dfe7ee"/>
+    <path d="M154 238 L170 258 L178 266 L162 242 Z M202 238 L186 258 L178 266 L194 242 Z" fill="#fff" stroke="#c6d1da" stroke-width="1.5"/>
     <!-- apron -->
-    <path d="M70 250 L172 250 L180 376 L62 376 Z" fill="#f08a1c"/>
-    <path d="M70 250 L104 226 L138 226 L172 250 Z" fill="#f08a1c" opacity="0"/>
-    <rect x="76" y="296" width="90" height="38" rx="6" fill="#fff"/>
-    <text x="121" y="322" font-size="22" font-weight="900" text-anchor="middle" fill="#d2261c" font-family="Arial Black,Arial,sans-serif">BRICK</text>
-    <!-- left arm (viewer's left) -->
-    <rect x="14" y="238" width="38" height="104" rx="16" fill="#f1f6fa" stroke="#cfd9e0" stroke-width="2"/>
-    <circle cx="33" cy="350" r="15" fill="#f6c21c"/>
-    <!-- right arm raised holding brick -->
-    <g transform="rotate(-28 190 250)">
-      <rect x="188" y="204" width="38" height="96" rx="16" fill="#f1f6fa" stroke="#cfd9e0" stroke-width="2"/>
-    </g>
-    <circle cx="238" cy="196" r="15" fill="#f6c21c"/>
-    <!-- red brick held -->
-    <g transform="translate(222,128) rotate(-12)">
-      <polygon points="0,40 98,40 112,24 14,24" fill="#ee5a4a"/>
-      <rect x="0" y="40" width="98" height="40" rx="3" fill="#d2261c"/>
-      <polygon points="98,40 112,24 112,64 98,80" fill="#a51a12"/>
-      <ellipse cx="26" cy="32" rx="11" ry="4.5" fill="#ee5a4a"/><ellipse cx="56" cy="32" rx="11" ry="4.5" fill="#ee5a4a"/><ellipse cx="86" cy="32" rx="11" ry="4.5" fill="#ee5a4a"/>
-    </g>
+    <path d="M144 266 L212 266 L216 304 L246 304 L262 372 L94 372 L110 304 L140 304 Z" fill="url(#apron)" stroke="#d96a06" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M146 268 L128 240 M210 268 L228 240" stroke="#f68a16" stroke-width="8" stroke-linecap="round"/>
+    <rect x="156" y="276" width="44" height="24" rx="6" fill="#fff"/>
+    <rect x="166" y="285" width="24" height="10" rx="2" fill="#e2301f"/>
+    <rect x="169" y="281" width="7" height="5" rx="1.5" fill="#e2301f"/><rect x="180" y="281" width="7" height="5" rx="1.5" fill="#e2301f"/>
+    <rect x="132" y="322" width="92" height="30" rx="7" fill="none" stroke="#d96a06" stroke-width="2.5"/>
+    <path d="M178 322 V352" stroke="#d96a06" stroke-width="2.5"/>
+
     <!-- neck + head -->
-    <rect x="96" y="208" width="52" height="24" rx="6" fill="#f6c21c"/>
-    <!-- ponytail -->
-    <path d="M44 120 C10 130 6 190 36 228 C20 190 34 160 58 150 Z" fill="#8a4a24"/>
-    <!-- head -->
-    <rect x="60" y="86" width="124" height="124" rx="38" fill="#f6c21c"/>
-    <!-- hair top -->
-    <path d="M52 140 C46 70 100 52 146 66 C186 78 196 120 190 150 C176 112 138 100 104 106 C84 110 62 122 52 140 Z" fill="#8a4a24"/>
-    <path d="M60 130 C70 112 92 104 112 102" stroke="#a65d2f" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <rect x="150" y="216" width="56" height="26" rx="6" fill="#e3a200"/>
+    <rect x="118" y="100" width="120" height="124" rx="32" fill="url(#skin)"/>
+    <rect x="128" y="112" width="18" height="96" rx="9" fill="#fff" opacity=".22"/>
     <!-- face -->
-    <circle cx="100" cy="150" r="7" fill="#3b2418"/><circle cx="144" cy="150" r="7" fill="#3b2418"/>
-    <circle cx="102" cy="148" r="2" fill="#fff"/><circle cx="146" cy="148" r="2" fill="#fff"/>
-    <path d="M96 176 Q122 198 150 176" stroke="#3b2418" stroke-width="5" fill="none" stroke-linecap="round"/>
-    <path d="M100 178 Q122 194 146 178 Z" fill="#fff"/>
-    <g fill="#d9902a"><circle cx="90" cy="168" r="2"/><circle cx="98" cy="172" r="2"/><circle cx="150" cy="168" r="2"/><circle cx="158" cy="172" r="2"/></g>
+    <path d="M144 146 Q155 139 166 145 M190 145 Q201 139 212 146" stroke="#5b2d14" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <ellipse cx="156" cy="166" rx="7" ry="9" fill="#2b1a12"/><ellipse cx="200" cy="166" rx="7" ry="9" fill="#2b1a12"/>
+    <circle cx="158.5" cy="162.5" r="2.6" fill="#fff"/><circle cx="202.5" cy="162.5" r="2.6" fill="#fff"/>
+    <path d="M149 159 L144 155 M207 159 L212 155" stroke="#2b1a12" stroke-width="2.5" stroke-linecap="round"/>
+    <ellipse cx="138" cy="188" rx="10" ry="6" fill="#ff7a4a" opacity=".35"/><ellipse cx="218" cy="188" rx="10" ry="6" fill="#ff7a4a" opacity=".35"/>
+    <g fill="#c4801a"><circle cx="134" cy="181" r="1.8"/><circle cx="141" cy="185" r="1.8"/><circle cx="135" cy="189" r="1.8"/>
+      <circle cx="222" cy="181" r="1.8"/><circle cx="215" cy="185" r="1.8"/><circle cx="221" cy="189" r="1.8"/></g>
+    <path d="M154 188 Q178 222 202 188 Q178 196 154 188 Z" fill="#5a1c10" stroke="#3b1a10" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M158 190 Q178 197 198 190 L196 196 Q178 202 160 196 Z" fill="#fff"/>
+    <ellipse cx="178" cy="206" rx="9" ry="4" fill="#e8605a"/>
+    <!-- bangs -->
+    <path d="M110 172 C102 112 140 84 184 84 C228 84 254 112 250 164 C242 140 228 124 206 118 C178 112 152 124 138 144 C128 156 118 164 110 172 Z" fill="url(#hair)"/>
+    <path d="M136 104 C166 90 204 92 228 108" stroke="#c0713a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".75"/>
+    <path d="M124 136 C136 122 150 114 166 110" stroke="#c0713a" stroke-width="4" fill="none" stroke-linecap="round" opacity=".6"/>
+
+    <!-- hanging arm (viewer left) -->
+    <g transform="translate(126 248) rotate(16)">
+      <rect x="-20" y="-6" width="40" height="120" rx="19" fill="url(#shirt)" stroke="#d5dee6" stroke-width="2"/>
+    </g>
+    <g transform="translate(92 378) rotate(16)">
+      <circle r="18" fill="url(#hand)"/><circle r="8.5" fill="#d18e00"/><rect x="-5" y="0" width="10" height="18" fill="#d18e00"/>
+    </g>
+    <!-- raised arm -->
+    <g transform="translate(232 254) rotate(-131)">
+      <rect x="-20" y="-6" width="40" height="112" rx="19" fill="url(#shirt)" stroke="#d5dee6" stroke-width="2"/>
+    </g>
+    <g id="held"></g>
+    <g transform="translate(312 182) rotate(-131)">
+      <circle r="18" fill="url(#hand)"/><circle r="8.5" fill="#d18e00"/><rect x="-5" y="0" width="10" height="18" fill="#d18e00"/>
+    </g>
+    <!-- sparkle lines -->
+    <g stroke="#ffbf14" stroke-width="6" stroke-linecap="round">
+      <line x1="394" y1="122" x2="410" y2="108"/><line x1="380" y1="104" x2="386" y2="84"/><line x1="402" y1="144" x2="422" y2="142"/>
+    </g>
   </svg>
+
+  <!-- stud / tube diagram -->
+  <svg id="diagram" class="abs shadow" style="left:212px;top:474px;width:196px;height:196px" viewBox="0 0 196 196"></svg>
 
   <!-- cards -->
-  <div class="card c1">
-    <i class="stud"></i><i class="stud"></i><i class="stud"></i>
-    <h2>Quality</h2><p>Precision and reliable fit</p>
-    <svg viewBox="0 0 210 140">
-      <g transform="translate(28,34)">
-        <polygon points="0,30 90,30 104,16 14,16" fill="#f08a1c"/>
-        <rect x="0" y="30" width="90" height="46" rx="4" fill="#e0431f"/>
-        <polygon points="90,30 104,16 104,62 90,76" fill="#b5300f"/>
-        <ellipse cx="24" cy="23" rx="10" ry="4" fill="#f08a1c"/><ellipse cx="52" cy="23" rx="10" ry="4" fill="#f08a1c"/><ellipse cx="80" cy="23" rx="10" ry="4" fill="#f08a1c"/>
-      </g>
-      <g transform="translate(66,62)">
-        <polygon points="0,30 90,30 104,16 14,16" fill="#6a63e6"/>
-        <rect x="0" y="30" width="90" height="46" rx="4" fill="#4a3fd0"/>
-        <polygon points="90,30 104,16 104,62 90,76" fill="#3329a0"/>
-        <ellipse cx="24" cy="23" rx="10" ry="4" fill="#6a63e6"/><ellipse cx="52" cy="23" rx="10" ry="4" fill="#6a63e6"/><ellipse cx="80" cy="23" rx="10" ry="4" fill="#6a63e6"/>
-      </g>
-    </svg>
-  </div>
+  <div class="card c1"><i class="stud"></i><i class="stud"></i><i class="stud"></i>
+    <h2>Quality</h2><p>Precision and reliable fit</p><svg id="ic1" viewBox="0 0 232 150"></svg></div>
+  <div class="card c2"><i class="stud"></i><i class="stud"></i><i class="stud"></i>
+    <h2>Durability</h2><p>Compatibility across generations</p><svg id="ic2" viewBox="0 0 232 150"></svg></div>
+  <div class="card c3"><i class="stud"></i><i class="stud"></i><i class="stud"></i>
+    <h2>Safety</h2><p>Strict standards for children</p><svg id="ic3" viewBox="0 0 232 150"></svg></div>
 
-  <div class="card c2">
-    <i class="stud"></i><i class="stud"></i><i class="stud"></i>
-    <h2>Durability</h2><p>Compatibility across generations</p>
-    <svg viewBox="0 0 210 140">
-      <!-- castle -->
-      <rect x="30" y="100" width="150" height="26" rx="6" fill="#7bb33a"/>
-      <rect x="62" y="56" width="86" height="56" fill="#d7d8da"/>
-      <rect x="42" y="46" width="30" height="66" fill="#c3c5c8"/>
-      <rect x="138" y="46" width="30" height="66" fill="#c3c5c8"/>
-      <g fill="#c3c5c8"><rect x="42" y="38" width="8" height="10"/><rect x="54" y="38" width="8" height="10"/><rect x="66" y="38" width="6" height="10"/>
-        <rect x="138" y="38" width="8" height="10"/><rect x="150" y="38" width="8" height="10"/><rect x="162" y="38" width="6" height="10"/></g>
-      <g fill="#d7d8da"><rect x="68" y="48" width="10" height="10"/><rect x="84" y="48" width="10" height="10"/><rect x="100" y="48" width="10" height="10"/><rect x="116" y="48" width="10" height="10"/><rect x="132" y="48" width="8" height="10"/></g>
-      <path d="M93 112 V88 a12 12 0 0 1 24 0 V112 Z" fill="#8a5a2b"/>
-      <rect x="52" y="64" width="8" height="14" rx="4" fill="#5a6168"/><rect x="150" y="64" width="8" height="14" rx="4" fill="#5a6168"/>
-      <line x1="105" y1="46" x2="105" y2="22" stroke="#6b4a2b" stroke-width="3"/>
-      <polygon points="105,22 128,29 105,36" fill="#f2c21c"/>
-    </svg>
-  </div>
-
-  <div class="card c3">
-    <i class="stud"></i><i class="stud"></i><i class="stud"></i>
-    <h2>Safety</h2><p>Strict standards for children</p>
-    <svg viewBox="0 0 210 140">
-      <path d="M105 14 L158 32 V74 C158 104 134 122 105 132 C76 122 52 104 52 74 V32 Z" fill="#f4b81c" stroke="#fff3b0" stroke-width="3"/>
-      <path d="M105 26 L148 40 V74 C148 98 128 113 105 122 C82 113 62 98 62 74 V40 Z" fill="#fbd24c"/>
-      <path d="M82 76 L98 92 L130 56" stroke="#5b4a3a" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </div>
-
+  <svg class="dash" style="left:404px" viewBox="0 0 34 56"><g stroke="#e2301f" stroke-width="4.5" stroke-linecap="round">
+    <line x1="30" y1="12" x2="18" y2="4"/><line x1="26" y1="28" x2="10" y2="28"/><line x1="30" y1="44" x2="18" y2="52"/></g></svg>
+  <svg class="dash" style="left:1186px" viewBox="0 0 34 56"><g stroke="#e2301f" stroke-width="4.5" stroke-linecap="round">
+    <line x1="4" y1="12" x2="16" y2="4"/><line x1="8" y1="28" x2="24" y2="28"/><line x1="4" y1="44" x2="16" y2="52"/></g></svg>
   <div class="banner">The product promise cannot be traded away.</div>
 
-  <div class="progress"><i></i></div>
+  <div class="progress" id="progress"><div class="fill" style="width:44.4%"></div></div>
   <div class="num">05</div>
 </div>
+
+<script>
+const C = Math.sqrt(3) / 2;
+let uid = 0;
+
+function shade(hex, amt) {
+  const n = parseInt(hex.slice(1), 16);
+  let r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+  const t = amt < 0 ? 0 : 255, p = Math.abs(amt);
+  r = Math.round(r + (t - r) * p); g = Math.round(g + (t - g) * p); b = Math.round(b + (t - b) * p);
+  return '#' + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
+}
+
+/* Isometric LEGO brick. L × D studs, H tall (in stud pitches). */
+function brick(o) {
+  const { L = 4, D = 2, H = 1.2, s = 16, ox = 0, oy = 0, X0 = 0, Y0 = 0, Z0 = 0, color = '#e2301f',
+          line = null, lw = 1, studs = true, studIf = null, only = null, hollow = false } = o;
+  const pt = (X, Y, Z) => [ox + (X + X0 - Y - Y0) * C * s, oy + (X + X0 + Y + Y0) * 0.5 * s - (Z + Z0) * s];
+  const P = (X, Y, Z) => pt(X, Y, Z).map(v => v.toFixed(2)).join(',');
+  const la = line ? `stroke="${line}" stroke-width="${lw}" stroke-linejoin="round"` : '';
+  const poly = (pts, fill) => `<polygon points="${pts.map(p => P(...p)).join(' ')}" fill="${fill}" ${la}/>`;
+  const id = 'b' + (++uid);
+  let out = `<defs>
+    <linearGradient id="${id}l" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${shade(color, .06)}"/><stop offset="1" stop-color="${shade(color, -.1)}"/></linearGradient>
+    <linearGradient id="${id}r" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${shade(color, -.2)}"/><stop offset="1" stop-color="${shade(color, -.34)}"/></linearGradient>
+    <linearGradient id="${id}t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${shade(color, .34)}"/><stop offset="1" stop-color="${shade(color, .16)}"/></linearGradient>
+    <linearGradient id="${id}s" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${shade(color, .2)}"/><stop offset=".45" stop-color="${shade(color, .02)}"/><stop offset="1" stop-color="${shade(color, -.3)}"/></linearGradient>
+  </defs>`;
+
+  const cyl = (X, Y, Zb, Zt, r, topFill, hole) => {
+    const [cx, cyb] = pt(X, Y, Zb), [, cyt] = pt(X, Y, Zt);
+    const rx = r * s * 1.2247, ry = r * s * 0.7071;
+    let g = `<ellipse cx="${cx}" cy="${cyb}" rx="${rx}" ry="${ry}" fill="${shade(color, -.3)}" ${la}/>
+      <rect x="${cx - rx}" y="${cyt}" width="${2 * rx}" height="${cyb - cyt}" fill="url(#${id}s)"/>`;
+    if (line) g += `<path d="M${cx - rx} ${cyt}V${cyb}M${cx + rx} ${cyt}V${cyb}" stroke="${line}" stroke-width="${lw}"/>`;
+    g += `<ellipse cx="${cx}" cy="${cyt}" rx="${rx}" ry="${ry}" fill="${topFill}" ${la}/>`;
+    if (hole) g += `<ellipse cx="${cx}" cy="${cyt}" rx="${rx * .72}" ry="${ry * .72}" fill="${shade(color, -.42)}" ${la}/>`;
+    else g += `<ellipse cx="${cx - rx * .28}" cy="${cyt - ry * .15}" rx="${rx * .42}" ry="${ry * .34}" fill="#fff" opacity=".4"/>`;
+    return g;
+  };
+
+  if (only !== 'studs') {
+    out += poly([[0, D, 0], [L, D, 0], [L, D, H], [0, D, H]], `url(#${id}l)`);
+    out += poly([[L, 0, 0], [L, D, 0], [L, D, H], [L, 0, H]], `url(#${id}r)`);
+    out += poly([[0, 0, H], [L, 0, H], [L, D, H], [0, D, H]], `url(#${id}t)`);
+    if (!line) out += `<polyline points="${P(0, D, H)} ${P(L, D, H)} ${P(L, 0, H)}" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="${Math.max(1, s * .07)}" stroke-linejoin="round"/>`;
+    if (hollow) {
+      const w = .16, f = .3;
+      const op = [[w, w, H], [L - w, w, H], [L - w, D - w, H], [w, D - w, H]];
+      out += `<clipPath id="${id}c"><polygon points="${op.map(p => P(...p)).join(' ')}"/></clipPath>`;
+      out += poly(op, shade(color, -.3));
+      let inner = poly([[w, w, f], [L - w, w, f], [L - w, D - w, f], [w, D - w, f]], shade(color, -.28));
+      inner += poly([[w, w, f], [w, D - w, f], [w, D - w, H], [w, w, H]], shade(color, -.1));
+      inner += poly([[w, w, f], [L - w, w, f], [L - w, w, H], [w, w, H]], shade(color, -.18));
+      for (let X = 1; X < L; X++) inner += cyl(X, D / 2, f, H, .4, shade(color, .3), true);
+      out += `<g clip-path="url(#${id}c)">${inner}</g>`;
+    }
+  }
+  if (studs && !hollow && only !== 'body') {
+    const list = [];
+    for (let i = 0; i < L; i++) for (let j = 0; j < D; j++) list.push([i + .5, j + .5]);
+    list.sort((a, b) => (a[0] + a[1]) - (b[0] + b[1]));
+    for (const [X, Y] of list) if (!studIf || studIf(X, Y)) out += cyl(X, Y, H, H + .18, .3, `url(#${id}t)`, false);
+  }
+  return out;
+}
+
+function star(x, y, r, fill = '#fff') {
+  return `<path d="M${x} ${y - r}Q${x} ${y} ${x + r} ${y}Q${x} ${y} ${x} ${y + r}Q${x} ${y} ${x - r} ${y}Q${x} ${y} ${x} ${y - r}Z" fill="${fill}"/>`;
+}
+
+const $ = id => document.getElementById(id);
+
+/* held brick */
+$('held').innerHTML = brick({ s: 17, ox: 330, oy: 170, color: '#e2301f' });
+
+/* corner bricks */
+$('corner').innerHTML = `<g transform="rotate(8 70 60)">` +
+  brick({ s: 15, ox: 56, oy: 56, color: '#9fd12a', studIf: X => X < 2 }) +
+  brick({ s: 15, ox: 56, oy: 56, X0: -2, Z0: 1.2, L: 4, D: 2, color: '#e2301f' }) +
+  brick({ s: 15, ox: 56, oy: 56, color: '#9fd12a', only: 'studs', studIf: X => X >= 2 }) + `</g>` +
+  star(122, 22, 9) + star(10, 96, 6);
+
+/* Quality: red brick snapped onto blue */
+$('ic1').innerHTML =
+  `<ellipse cx="128" cy="138" rx="80" ry="10" fill="#7a5a00" opacity=".18"/>` +
+  brick({ s: 17, ox: 118, oy: 82, color: '#4a3fe0', studIf: X => X < 2 }) +
+  brick({ s: 17, ox: 118, oy: 82, X0: -2, Z0: 1.2, color: '#e8401f' }) +
+  brick({ s: 17, ox: 118, oy: 82, color: '#4a3fe0', only: 'studs', studIf: X => X >= 2 }) +
+  `<g stroke="#e8401f" stroke-width="5" stroke-linecap="round"><line x1="196" y1="40" x2="210" y2="28"/><line x1="204" y1="58" x2="222" y2="56"/><line x1="184" y1="28" x2="188" y2="12"/></g>`;
+
+/* Durability: castle on a baseplate */
+(() => {
+  const s = 11, ox = 104, oy = 50, grey = '#c3c8cf', dark = '#a9b0b9';
+  const B = o => brick(Object.assign({ s, ox, oy }, o));
+  let g = `<ellipse cx="128" cy="140" rx="96" ry="9" fill="#5a1000" opacity=".22"/>`;
+  g += B({ L: 9, D: 6, H: .35, color: '#58b83a' });
+  const zb = .35;
+  // left tower
+  for (let k = 0; k < 3; k++) g += B({ L: 2, D: 2, X0: 1, Y0: 1, Z0: zb + k * 1.2, color: k % 2 ? dark : grey, studs: k === 2 });
+  // wall
+  for (let k = 0; k < 2; k++) g += B({ L: 3, D: 1, X0: 3, Y0: 2, Z0: zb + k * 1.2, color: k % 2 ? dark : grey, studs: k === 1 });
+  // right tower
+  for (let k = 0; k < 3; k++) g += B({ L: 2, D: 2, X0: 6, Y0: 1, Z0: zb + k * 1.2, color: k % 2 ? dark : grey, studs: k === 2 });
+  // crenellations
+  const top3 = zb + 3.6, top2 = zb + 2.4;
+  [[1, 1, top3], [3, 2, top2], [5, 2, top2], [2, 2, top3], [6, 1, top3], [7, 2, top3]]
+    .sort((a, b) => (a[0] + a[1]) - (b[0] + b[1]))
+    .forEach(([X, Y, Z]) => g += B({ L: 1, D: 1, X0: X, Y0: Y, Z0: Z, color: grey }));
+  // door + windows on front faces
+  const pt = (X, Y, Z) => [ox + (X - Y) * C * s, oy + (X + Y) * .5 * s - Z * s];
+  const a = pt(4, 3, zb), b = pt(5, 3, zb), c = pt(5, 3, zb + 1.3), d = pt(4, 3, zb + 1.3), q = pt(4.5, 3, zb + 2.2);
+  g += `<path d="M${a} L${b} L${c} Q${q} ${d} Z" fill="#7a4520" stroke="#5a3012" stroke-width="1.2"/>`;
+  const win = (X, Y, Z) => { const p1 = pt(X, Y, Z), p2 = pt(X + .4, Y, Z), p3 = pt(X + .4, Y, Z + .9), p4 = pt(X, Y, Z + .9);
+    return `<polygon points="${p1} ${p2} ${p3} ${p4}" fill="#4a5560"/>`; };
+  g += win(1.8, 3, zb + 1.6) + win(6.8, 3, zb + 1.6);
+  // flag
+  const f0 = pt(7, 2, top3 + .2), f1 = pt(7, 2, top3 + 2.6);
+  g += `<line x1="${f0[0]}" y1="${f0[1]}" x2="${f1[0]}" y2="${f1[1]}" stroke="#6b4a2b" stroke-width="2.5" stroke-linecap="round"/>`;
+  g += `<path d="M${f1[0]} ${f1[1]} L${f1[0] + 24} ${f1[1] + 7} L${f1[0]} ${f1[1] + 14} Z" fill="#ffd21f" stroke="#e0a800" stroke-width="1"/>`;
+  g += star(40, 30, 7) + star(206, 64, 5);
+  $('ic2').innerHTML = g;
+})();
+
+/* Safety: shield */
+$('ic3').innerHTML = `
+  <defs>
+    <linearGradient id="sh1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe772"/><stop offset=".5" stop-color="#f8c21c"/><stop offset="1" stop-color="#d98e00"/></linearGradient>
+    <linearGradient id="sh2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff2a8"/><stop offset="1" stop-color="#f6c62a"/></linearGradient>
+  </defs>
+  <ellipse cx="118" cy="142" rx="54" ry="7" fill="#1a0a60" opacity=".3"/>
+  <path d="M116 6 L174 26 V70 C174 106 148 128 116 140 C84 128 58 106 58 70 V26 Z" fill="url(#sh1)" stroke="#fff6c4" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M116 20 L162 36 V70 C162 98 142 116 116 126 C90 116 70 98 70 70 V36 Z" fill="url(#sh2)"/>
+  <path d="M116 20 L162 36 V60 C140 54 112 60 70 80 V36 Z" fill="#fff" opacity=".28"/>
+  <path d="M92 74 L110 92 L142 56" stroke="#fff" stroke-width="20" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M92 74 L110 92 L142 56" stroke="#4a2e1a" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  ${star(190, 26, 10)}${star(44, 52, 7)}${star(184, 108, 6)}`;
+
+/* Stud & tube diagram */
+(() => {
+  const s = 15, ox = 84, line = '#8d9eab', col = '#eef2f5';
+  let g = `<circle cx="98" cy="98" r="90" fill="#fff" stroke="#f5b915" stroke-width="6"/>`;
+  g += brick({ s, ox, oy: 50, color: col, line, lw: 1.2, hollow: true });
+  g += `<g stroke="#e2301f" stroke-width="2.5" stroke-linecap="round" fill="none"><path d="M162 72 V104"/><path d="M156 98 L162 106 L168 98"/></g>`;
+  g += brick({ s, ox, oy: 118, color: col, line, lw: 1.2 });
+  const lbl = (x, y, t) => `<rect x="${x - 4}" y="${y - 14}" width="${t.length * 8.6 + 8}" height="20" rx="10" fill="#3d2418"/><text x="${x}" y="${y}" font-family="Fredoka" font-weight="600" font-size="14" fill="#fff">${t}</text>`;
+  g += `<path d="M48 40 L76 46" stroke="#3d2418" stroke-width="1.6"/><circle cx="78" cy="46.5" r="2.5" fill="#3d2418"/>`;
+  g += lbl(16, 44, 'Tube');
+  g += `<path d="M138 150 L112 136" stroke="#3d2418" stroke-width="1.6"/><circle cx="110" cy="135" r="2.5" fill="#3d2418"/>`;
+  g += lbl(130, 162, 'Stud');
+  $('diagram').innerHTML = g;
+})();
+
+/* progress nodes */
+(() => {
+  const p = $('progress'), n = 10;
+  for (let i = 0; i < n; i++) {
+    const d = document.createElement('i');
+    d.className = 'node' + (i < 5 ? ' on' : '') + (i === 4 ? ' now' : '');
+    d.style.left = (i / (n - 1) * 100) + '%';
+    p.appendChild(d);
+  }
+})();
+</script>
 </body>
 </html>
